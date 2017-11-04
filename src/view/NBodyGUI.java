@@ -38,10 +38,10 @@ public class NBodyGUI
 		{
 			Graphics2D graphics = (Graphics2D) g;
 
-			for (int i = 0; i < allBodies.length; i++)
+			for(Body body: allBodies)
 			{
 				graphics.setColor(Color.BLUE);
-				graphics.fillOval(allBodies[i].getxPosition(), allBodies[i].getyPosition(), allBodies[i].getSize(), allBodies[i].getSize());
+				graphics.fillOval(body.getxPosition(), body.getyPosition(), body.getSize(), body.getSize());
 			}
 		}
 	}

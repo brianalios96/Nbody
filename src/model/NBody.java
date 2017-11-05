@@ -50,13 +50,13 @@ public class NBody
 		Body allBodies[] = new Body[bodies];
 		for (int i = 0; i < allBodies.length; i++) {
 			allBodies[i] = new Body();
-			allBodies[i].setxPosition(rng.nextInt());
-			allBodies[i].setyPosition(rng.nextInt());
-			allBodies[i].setxVelocity(rng.nextInt());
-			allBodies[i].setyVelocity(rng.nextInt());
+			allBodies[i].setxPosition(rng.nextInt(NBodyGUI.GUIsize));
+			allBodies[i].setyPosition(rng.nextInt(NBodyGUI.GUIsize));
+			allBodies[i].setxVelocity(0);
+			allBodies[i].setyVelocity(0);
 			if(random==true)
 			{
-				allBodies[i].setSize(rng.nextInt());
+				allBodies[i].setSize(10+rng.nextInt(40));
 			}
 			else{
 			allBodies[i].setSize(size);

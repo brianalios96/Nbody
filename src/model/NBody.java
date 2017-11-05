@@ -3,21 +3,24 @@ package model;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 import view.*;
 
 
 public class NBody
 {
-	private static final double secondInTimeStep = 0.1;
-	private static final int FramePerSecond = 10;
+	private static final double secondInTimeStep = 0.01;//used to calculate velocity and position
+	private static final int FramePerSecond = 10;//how long the body sleeps
+
 	public static void main(String[] args)
 	{
-		int workers = 0;// , 1 to 32. This argument will be ignored by the sequential solution.
+		int workers = 0;// 1 to 32. This argument will be ignored by the sequential solution.
 		int bodies = 2;
 		int size = 7;// of each body.
-		int timeSteps = 1000;// number of time steps
-		boolean guiOn = true;
+		int timeSteps = 1000;// number of time steps (how many times the physics loop will run)
+		boolean guiOn = true;//display the GUI or not
+		boolean random= false;//set size of bodies to random numbers
 
 		long executionTime = 0;
 
@@ -34,32 +37,44 @@ public class NBody
 		if (4 <= args.length) {
 			timeSteps = Integer.parseInt(args[3]);
 		}
-		if (5 == args.length) {
-			guiOn = Boolean.parseBoolean(args[4]);// TODO test if this works
+		if (5 <= args.length) {
+			guiOn = Boolean.parseBoolean(args[4]);
 		}
-		
-		System.out.println("workers: "+workers);
-		System.out.println("bodies: "+bodies);
-		System.out.println("size: "+size);
-		System.out.println("timeSteps: "+timeSteps);
-		System.out.println("guiOn: "+guiOn);
+		if(6== args.length)
+		{
+			random=Boolean.parseBoolean(args[5]);
+		}
 
+
+		Random rng = new Random();
 		Body allBodies[] = new Body[bodies];
 		for (int i = 0; i < allBodies.length; i++) {
 			allBodies[i] = new Body();
+			allBodies[i].setxPosition(rng.nextInt());
+			allBodies[i].setyPosition(rng.nextInt());
+			allBodies[i].setxVelocity(rng.nextInt());
+			allBodies[i].setyVelocity(rng.nextInt());
+			if(random==true)
+			{
+				allBodies[i].setSize(rng.nextInt());
+			}
+			else{
+			allBodies[i].setSize(size);
+			}
 		}
 		// Random rng = new Random();
-		allBodies[0].setxPosition(450);
-		allBodies[0].setyPosition(150);
-		allBodies[0].setxVelocity(0);
-		allBodies[0].setyVelocity(0);
-		allBodies[0].setSize(size);
 
-		allBodies[1].setxPosition(50);
-		allBodies[1].setyPosition(150);
-		allBodies[1].setxVelocity(0);
-		allBodies[1].setyVelocity(0);
-		allBodies[1].setSize(size);
+//		allBodies[0].setxPosition(200);
+//		allBodies[0].setyPosition(150);
+//		allBodies[0].setxVelocity(-0.1);
+//		allBodies[0].setyVelocity(0);
+//		allBodies[0].setSize(size);
+//
+//		allBodies[1].setxPosition(100);
+//		allBodies[1].setyPosition(150);
+//		allBodies[1].setxVelocity(0.1);
+//		allBodies[1].setyVelocity(0);
+//		allBodies[1].setSize(size);
 		NBodyGUI gui = null;
 		if (guiOn) {
 			//second parameter is the window size

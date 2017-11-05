@@ -44,7 +44,25 @@ public class WorkerThread extends Thread
 			lastBody = allBodies.length + 1;
 		}
 		
+		int timeSteps = 1000; //TODO
 		
+		for(int i = 0; i < timeSteps; i++)
+		{
+			for(int j = firstbody; i<lastBody; i++)
+			{
+				allBodies[j].updateVelocity(allBodies, 0.1); //TODO
+			}
+			barrier();
+			for(int j = firstbody; i<lastBody; i++)
+			{
+				allBodies[j].updatePosition(0.1); //TODO
+			}
+			barrier();
+			if(threadID == 0)
+			{
+				GUI.update();
+			}
+		}
 	}
 	
 	private void barrier()

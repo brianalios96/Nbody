@@ -20,7 +20,7 @@ public class NBody
 		int bodies = 50;
 		int size = 10;// of each body.
 		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)
-		boolean guiOn = false;//display the GUI or not
+		boolean guiOn = true;//display the GUI or not
 		boolean random= false;//set size of bodies to random numbers
 
 		long executionTime = 0;
@@ -53,9 +53,9 @@ public class NBody
 			allBodies[i] = new Body();
 			allBodies[i].setxPosition(rng.nextInt(NBodyGUI.GUIsize));
 			allBodies[i].setyPosition(rng.nextInt(NBodyGUI.GUIsize));
-			allBodies[i].setxVelocity(0);
-			allBodies[i].setyVelocity(0);
-			allBodies[i].setcolor(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));
+//			allBodies[i].setxVelocity(0);
+//			allBodies[i].setyVelocity(0);
+//			allBodies[i].setcolor(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));
 			if(random==true)
 			{
 				allBodies[i].setSize(10+rng.nextInt(40));

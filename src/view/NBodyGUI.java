@@ -6,7 +6,7 @@ import model.*;
 
 public class NBodyGUI
 {
-	private static final int FramePerSecond = 100;//how long the body sleeps
+	private static final int FramePerSecond = 100;//slows down the simulation so it is understandable to humans.  dose NOT affect simulation.
 	
 	private Body allBodies[];
 	private JFrame frame;
@@ -18,7 +18,7 @@ public class NBodyGUI
 		this.allBodies = allBodies;
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(GUIsize,GUIsize);//300, 300);
+		frame.setSize(GUIsize,GUIsize);
 		frame.setLocation(600, 200);
 		frame.add(new DrawingPanel());
 		frame.setVisible(true);

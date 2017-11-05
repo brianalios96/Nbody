@@ -14,7 +14,7 @@ public class NBodyParallel {
 
 	public static void main(String[] args)
 	{
-		int workers = 1;// 1 to 32. This argument will be ignored by the sequential solution.
+		int workers = 32;// 1 to 32. This argument will be ignored by the sequential solution.
 		int bodies = 50;
 		int size = 10;// of each body.
 		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)

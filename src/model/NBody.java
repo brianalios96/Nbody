@@ -1,28 +1,20 @@
 package model;
 
-import java.awt.Color;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 import view.*;
 
-
-public class NBody
-{
-	//private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
-	//private static final int FramePerSecond = 10;//how long the body sleeps
-
-	public static void main(String[] args)
-	{
-		int workers = 0;// 1 to 32. This argument will be ignored by the sequential solution.
-		int bodies = 2;
+public class NBody {
+	public static void main(String[] args) {
+		int workers = 0;// 1 to 32. This argument will be ignored by the
+						// sequential solution.
+		int bodies = 50;
 		int size = 10;// of each body.
-		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)
-		boolean guiOn = true;//display the GUI or not
-		boolean random= false;//set size of bodies to random numbers
+		int timeSteps = 10000;// number of time steps (how many times the
+								// physics loop will run)
+		boolean guiOn = true;// display the GUI or not
+		boolean random = false;// set size of bodies to random numbers
 
 		long executionTime = 0;
 
@@ -42,43 +34,49 @@ public class NBody
 		if (5 <= args.length) {
 			guiOn = Boolean.parseBoolean(args[4]);
 		}
-		if(6== args.length)
-		{
-			random=Boolean.parseBoolean(args[5]);
+		if (6 == args.length) {
+			random = Boolean.parseBoolean(args[5]);
 		}
 
+		ArrayList<ArrayList<Integer>> used = new ArrayList<ArrayList<Integer>>(3);
 
-		ArrayList<Integer> inuse= new ArrayList<>();
-		int position;
-		
-		Random rng = new Random();		
+		for (int i = 0; i < 500; i++) {
+			used.add(new ArrayList<Integer>());
+		}
+
+		Random rng = new Random();
 		Body allBodies[] = new Body[bodies];
 		for (int i = 0; i < allBodies.length; i++) {
 			allBodies[i] = new Body();
-			position= rng.nextInt(NBodyGUI.GUIsize);
-			while(inuse.contains(position))
-			{
-				position=rng.nextInt(NBodyGUI.GUIsize);
+			int rowposition = rng.nextInt(400);
+			int columnposition = rng.nextInt(400);
+			int fullcount = 0;
+			while (used.get(rowposition).contains(columnposition)) {
+				if (used.get(rowposition).size() == 400) {
+					System.out.println("row is full " + rowposition);
+					rowposition = rng.nextInt(400);
+				} else {
+					columnposition = rng.nextInt(400);
+				}
 			}
-			inuse.add(position);
-			allBodies[i].setxPosition(position);//rng.nextInt(NBodyGUI.GUIsize));
+			used.get(rowposition).add(columnposition);
+			fullcount = fullcount + 1;
+			if (fullcount == 1600) {
+				System.err.println("space is full, too many input");
+				return;
+			}
 			
-			position= rng.nextInt(NBodyGUI.GUIsize);
-			while(inuse.contains(position))
-			{
-				position=rng.nextInt(NBodyGUI.GUIsize);
-			}
-			inuse.add(position);
-			allBodies[i].setyPosition(position);//rng.nextInt(NBodyGUI.GUIsize));
-//			allBodies[i].setxVelocity(0);
-//			allBodies[i].setyVelocity(0);
-//			allBodies[i].setcolor(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));
-			if(random==true)
-			{
-				allBodies[i].setSize(10+rng.nextInt(40));
-			}
-			else{
-			allBodies[i].setSize(size);
+			allBodies[i].setxPosition(rowposition);// rng.nextInt(NBodyGUI.GUIsize));
+			allBodies[i].setyPosition(columnposition);// rng.nextInt(NBodyGUI.GUIsize));
+			
+			rowposition = rng.nextInt(400);
+			columnposition = rng.nextInt(400);
+
+			
+			if (random == true) {
+				allBodies[i].setSize(10 + rng.nextInt(40));
+			} else {
+				allBodies[i].setSize(size);
 			}
 		}
 
@@ -87,41 +85,34 @@ public class NBody
 			gui = new NBodyGUI(allBodies);
 		}
 
-		int collisions=0;
-		
+		int collisions = 0;
+
 		// start the timer
 		long startTime = System.nanoTime();
 
-		for (int i = 0; i < timeSteps; i++)
-		{
-			collisions= collisions+ physics(allBodies);
-			if (guiOn) 
-			{
+		for (int i = 0; i < timeSteps; i++) {
+			collisions = collisions + physics(allBodies);
+			if (guiOn) {
 				gui.update();
 			}
-//			try {
-//				Thread.sleep(1000 / FramePerSecond);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//				System.exit(1);
-//			}
 		}
 
 		// stop the timer
 		long endTime = System.nanoTime();
 
 		// convert the time to microseconds
-		executionTime = (endTime - startTime) / 1000000;//nano to milli
-		long seconds = executionTime / 1000;//milli to seconds
-		long milliseconds = executionTime - (seconds * 1000);//find left over milliseconds
-		
-		System.out.println("computation time: "+seconds+" seconds "+ milliseconds +" milliseconds");
-		System.out.println("Number of collisions: "+collisions);
+		executionTime = (endTime - startTime) / 1000000;// nano to milli
+		long seconds = executionTime / 1000;// milli to seconds
+		long milliseconds = executionTime - (seconds * 1000);// find left over
+																// milliseconds
+
+		System.out.println("computation time: " + seconds + " seconds " + milliseconds + " milliseconds");
+		System.out.println("Number of collisions: " + collisions);
 
 		if (guiOn) {
 			gui.dispose();
 		}
-		
+
 		writetofile(allBodies);
 	}
 
@@ -129,37 +120,29 @@ public class NBody
 		BufferedWriter out;
 		try {
 			out = new BufferedWriter(new FileWriter("NBodyResults.txt"));
-			for(int i=0; i<allBodies.length; i++)
-			{
-				out.write("Body: "+i);
+			for (int i = 0; i < allBodies.length; i++) {
+				out.write("Body: " + i);
 				out.newLine();
-				out.write("XPosition: "+allBodies[i].getxPosition()+", YPosition: "+allBodies[i].getyPosition()
-						+", XVelocity: "+ allBodies[i].getxVelocity()+", YVeloctiy: "+allBodies[i].getyVelocity());
+				out.write("XPosition: " + allBodies[i].getxPosition() + ", YPosition: " + allBodies[i].getyPosition()
+						+ ", XVelocity: " + allBodies[i].getxVelocity() + ", YVeloctiy: "
+						+ allBodies[i].getyVelocity());
 				out.newLine();
 				out.newLine();
 			}
 			out.close();
-		}catch (IOException e) {
+		} catch (IOException e) {
 			System.out.println("error in writing to file");
 		}
-		
+
 	}
 
-	private static int physics(Body[] allBodies)
-	{
+	private static int physics(Body[] allBodies) {
 		int collisions = 0;
-		double nextTime = allBodies[0].nextCollisionTime(allBodies);
-		for(int i = 1; i < allBodies.length; i++)
-		{
-			nextTime = Math.min(nextTime, allBodies[i].nextCollisionTime(allBodies));
+		for (Body body : allBodies) {
+			collisions = body.updateVelocity(allBodies);
 		}
-		for (Body body : allBodies)
-		{
-			collisions = body.updateVelocity(allBodies, nextTime);
-		}
-		for (Body body : allBodies)
-		{
-			body.updatePosition(nextTime);
+		for (Body body : allBodies) {
+			body.updatePosition();
 		}
 		return collisions;
 	}

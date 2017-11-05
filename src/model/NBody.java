@@ -17,10 +17,10 @@ public class NBody
 	public static void main(String[] args)
 	{
 		int workers = 0;// 1 to 32. This argument will be ignored by the sequential solution.
-		int bodies = 2;
-		int size = 7;// of each body.
-		int timeSteps = 1000;// number of time steps (how many times the physics loop will run)
-		boolean guiOn = true;//display the GUI or not
+		int bodies = 50;
+		int size = 10;// of each body.
+		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)
+		boolean guiOn = false;//display the GUI or not
 		boolean random= false;//set size of bodies to random numbers
 
 		long executionTime = 0;
@@ -99,8 +99,8 @@ public class NBody
 		long seconds = executionTime / 1000;//milli to seconds
 		long milliseconds = executionTime - (seconds * 1000);//find left over milliseconds
 		
-		System.err.println("computation time: "+seconds+" seconds "+ milliseconds +" milliseconds");
-		System.err.println("Number of collisions: "+collisions);
+		System.out.println("computation time: "+seconds+" seconds "+ milliseconds +" milliseconds");
+		System.out.println("Number of collisions: "+collisions);
 
 		if (guiOn) {
 			gui.dispose();

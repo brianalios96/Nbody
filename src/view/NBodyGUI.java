@@ -6,7 +6,7 @@ import model.*;
 
 public class NBodyGUI
 {
-	private static final int FramePerSecond = 10;//how long the body sleeps
+	private static final int FramePerSecond = 100;//how long the body sleeps
 	
 	private Body allBodies[];
 	private JFrame frame;

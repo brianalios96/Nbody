@@ -9,12 +9,14 @@ public class NBodyGUI
 	private Body allBodies[];
 	private JFrame frame;
 
-	public NBodyGUI(Body[] allBodies, int size)
+	public static final int GUIsize=500;
+	
+	public NBodyGUI(Body[] allBodies)
 	{
 		this.allBodies = allBodies;
 		frame = new JFrame();
-		frame.setSize(size,size);//300, 300);
-		frame.setLocation(400, 500);
+		frame.setSize(GUIsize,GUIsize);//300, 300);
+		frame.setLocation(600, 200);
 		frame.add(new DrawingPanel());
 		frame.setVisible(true);
 	}

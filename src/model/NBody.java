@@ -57,7 +57,7 @@ public class NBody
 		NBodyGUI gui = null;
 		if (guiOn) {
 			//second parameter is the window size
-			gui = new NBodyGUI(allBodies, 400); // TODO set based off comand line
+			gui = new NBodyGUI(allBodies); // TODO set based off comand line
 											// argument?
 		}
 		// NBodyGUI gui = new NBodyGUI(allBodies); //TODO set based off comand

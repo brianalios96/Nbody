@@ -1,5 +1,7 @@
 package model;
 
+import view.NBodyGUI;
+
 public class Body
 {
 	private static final double GRAVITY = 6.673 * Math.pow(10, -11) / (1000 * 1000); // Newton square-kilometer per square-kilogram
@@ -72,6 +74,24 @@ public class Body
 		
 		initialXVelocity = xVelocity;
 		initialYVelocity = yVelocity;
+		
+		if(xPosition > NBodyGUI.GUIsize)
+		{
+			xPosition -= NBodyGUI.GUIsize;
+		}
+		else if(xPosition < 0)
+		{
+			xPosition += NBodyGUI.GUIsize;
+		}
+		
+		if(yPosition > NBodyGUI.GUIsize)
+		{
+			yPosition -= NBodyGUI.GUIsize;
+		}
+		else if(yPosition < 0)
+		{
+			yPosition += NBodyGUI.GUIsize;
+		}
 	}
 	
 	public void updateVelocity(Body[] allBodies, double seconds)

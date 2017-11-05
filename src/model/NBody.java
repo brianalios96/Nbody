@@ -10,7 +10,7 @@ import view.*;
 public class NBody
 {
 	private static final int secondInTimeStep = 1;
-	private static final int FramePerSecond = 200;
+	private static final int FramePerSecond = 50;
 	public static void main(String[] args)
 	{
 		int workers = 0;// , 1 to 32. This argument will be ignored by the sequential solution.
@@ -57,8 +57,7 @@ public class NBody
 		NBodyGUI gui = null;
 		if (guiOn) {
 			//second parameter is the window size
-			gui = new NBodyGUI(allBodies); // TODO set based off comand line
-											// argument?
+			gui = new NBodyGUI(allBodies); // TODO set based off comand line argument?
 		}
 		// NBodyGUI gui = new NBodyGUI(allBodies); //TODO set based off comand
 		// line argument?
@@ -66,9 +65,11 @@ public class NBody
 		// start the timer
 		long startTime = System.nanoTime();
 
-		for (int i = 0; i < timeSteps; i++) {
+		for (int i = 0; i < timeSteps; i++)
+		{
 			physics(allBodies);
-			if (guiOn) {
+			if (guiOn) 
+			{
 				gui.update();
 			}
 			// gui.update();

@@ -39,11 +39,11 @@ public class NBodyGUI
 		public void paintComponent(Graphics g)
 		{
 			Graphics2D graphics = (Graphics2D) g;
-
 			for(Body body: allBodies)
 			{
 				graphics.setColor(Color.BLUE);
 				graphics.fillOval(body.getxPosition(), body.getyPosition(), body.getSize(), body.getSize());
+				System.out.println(body.getxPosition() + " " + body.getyPosition());
 			}
 		}
 	}

@@ -1,23 +1,17 @@
 package model;
 
-import java.awt.Color;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 import view.*;
 
 
 public class NBody
 {
-	//private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
-	//private static final int FramePerSecond = 10;//how long the body sleeps
-
 	public static void main(String[] args)
 	{
 		int workers = 0;// 1 to 32. This argument will be ignored by the sequential solution.
-		int bodies = 2;
+		int bodies = 50;
 		int size = 10;// of each body.
 		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)
 		boolean guiOn = true;//display the GUI or not
@@ -53,9 +47,6 @@ public class NBody
 			allBodies[i] = new Body();
 			allBodies[i].setxPosition(rng.nextInt(NBodyGUI.GUIsize));
 			allBodies[i].setyPosition(rng.nextInt(NBodyGUI.GUIsize));
-//			allBodies[i].setxVelocity(0);
-//			allBodies[i].setyVelocity(0);
-//			allBodies[i].setcolor(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));
 			if(random==true)
 			{
 				allBodies[i].setSize(10+rng.nextInt(40));
@@ -82,12 +73,6 @@ public class NBody
 			{
 				gui.update();
 			}
-//			try {
-//				Thread.sleep(1000 / FramePerSecond);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//				System.exit(1);
-//			}
 		}
 
 		// stop the timer
@@ -131,18 +116,13 @@ public class NBody
 	private static int physics(Body[] allBodies)
 	{
 		int collisions = 0;
-		double nextTime = allBodies[0].nextCollisionTime(allBodies);
-		for(int i = 1; i < allBodies.length; i++)
+		for (Body body : allBodies)
 		{
-			nextTime = Math.min(nextTime, allBodies[i].nextCollisionTime(allBodies));
+			collisions = body.updateVelocity(allBodies);
 		}
 		for (Body body : allBodies)
 		{
-			collisions = body.updateVelocity(allBodies, nextTime);
-		}
-		for (Body body : allBodies)
-		{
-			body.updatePosition(nextTime);
+			body.updatePosition();
 		}
 		return collisions;
 	}

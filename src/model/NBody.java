@@ -53,7 +53,7 @@ public class NBody {
 			int fullcount = 0;
 			while (used.get(rowposition).contains(columnposition)) {
 				if (used.get(rowposition).size() == 400) {
-					System.out.println("row is full " + rowposition);
+					//System.out.println("row is full " + rowposition);
 					rowposition = rng.nextInt(400);
 				} else {
 					columnposition = rng.nextInt(400);

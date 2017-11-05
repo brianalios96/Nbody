@@ -71,11 +71,18 @@ public class NBodyParallel {
 		int collisions=0;
 		
 		WorkerThread threadworkers[]= new WorkerThread[workers];
+		
+		// start the timer
+		long startTime = System.nanoTime();
+		
+		
 		for(int i=0; i<workers; i++)
 		{
 			threadworkers[i]= new WorkerThread(i, workers, gui, allBodies, timeSteps);
 			threadworkers[i].start();
 		}
+		
+		//see if the threads are done
 		for(int i=0; i<workers; i++)
 		{
 			try {
@@ -84,9 +91,6 @@ public class NBodyParallel {
 				e.printStackTrace();
 			}
 		}
-		// start the timer
-		long startTime = System.nanoTime();
-
 		
 
 		// stop the timer
@@ -110,7 +114,7 @@ public class NBodyParallel {
 	private static void writetofile(Body[] allBodies) {
 		BufferedWriter out;
 		try {
-			out = new BufferedWriter(new FileWriter("NBodyResults.txt"));
+			out = new BufferedWriter(new FileWriter("NBodyParallelResults.txt"));
 			for(int i=0; i<allBodies.length; i++)
 			{
 				out.write("Body: "+i);

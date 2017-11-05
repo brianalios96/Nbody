@@ -1,12 +1,12 @@
 Body: 0
-XPosition: 75, YPosition: 342, XVelocity: 0.0, YVeloctiy: 0.0
+XPosition: 418, YPosition: 153, XVelocity: 0.0, YVeloctiy: 0.0
 
 Body: 1
-XPosition: 235, YPosition: 137, XVelocity: 0.0, YVeloctiy: 0.0
+XPosition: 475, YPosition: 396, XVelocity: 0.0, YVeloctiy: 0.0
 
 Body: 2
-XPosition: 358, YPosition: 450, XVelocity: 0.0, YVeloctiy: 0.0
+XPosition: 398, YPosition: 267, XVelocity: 0.0, YVeloctiy: 0.0
 
 Body: 3
-XPosition: 210, YPosition: 15, XVelocity: 0.0, YVeloctiy: 0.0
+XPosition: 91, YPosition: 431, XVelocity: 0.0, YVeloctiy: 0.0
 

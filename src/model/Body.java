@@ -118,6 +118,9 @@ public class Body
 					yVelocity = other.initialYVelocity * square(yDistance) + (other.initialXVelocity - initialXVelocity)*xDistance*yDistance + initialYVelocity*square(xDistance);
 					yVelocity /= distanceSquared;
 					collisions=collisions+1;
+					
+					distance = size;
+					distanceSquared = distance*distance;
 				}
 				
 				double force = GRAVITY * MASS * MASS / distanceSquared; // Newtons
@@ -130,6 +133,7 @@ public class Body
 
 				xVelocity += xAcceleration * (seconds / 1000); // KILOmeter per second
 				yVelocity += yAcceleration * (seconds / 1000);
+//				System.out.println(xVelocity);
 			}
 		}
 		return collisions;

@@ -15,7 +15,7 @@ public class NBody
 	{
 		int workers = 0;// , 1 to 32. This argument will be ignored by the sequential solution.
 		int bodies = 2;
-		int size = 40;// of each body.
+		int size = 7;// of each body.
 		int timeSteps = 1000;// number of time steps
 		boolean guiOn = true;
 

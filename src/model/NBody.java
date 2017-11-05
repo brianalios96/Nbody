@@ -37,6 +37,12 @@ public class NBody
 		if (5 == args.length) {
 			guiOn = Boolean.parseBoolean(args[4]);// TODO test if this works
 		}
+		
+		System.out.println("workers: "+workers);
+		System.out.println("bodies: "+bodies);
+		System.out.println("size: "+size);
+		System.out.println("timeSteps: "+timeSteps);
+		System.out.println("guiOn: "+guiOn);
 
 		Body allBodies[] = new Body[bodies];
 		for (int i = 0; i < allBodies.length; i++) {
@@ -57,22 +63,21 @@ public class NBody
 		NBodyGUI gui = null;
 		if (guiOn) {
 			//second parameter is the window size
-			gui = new NBodyGUI(allBodies); // TODO set based off comand line argument?
+			gui = new NBodyGUI(allBodies);
 		}
-		// NBodyGUI gui = new NBodyGUI(allBodies); //TODO set based off comand
-		// line argument?
 
+		int collisions=0;
+		
 		// start the timer
 		long startTime = System.nanoTime();
 
 		for (int i = 0; i < timeSteps; i++)
 		{
-			physics(allBodies);
+			collisions= collisions+ physics(allBodies);
 			if (guiOn) 
 			{
 				gui.update();
 			}
-			// gui.update();
 			try {
 				Thread.sleep(1000 / FramePerSecond);
 			} catch (InterruptedException e) {
@@ -90,13 +95,13 @@ public class NBody
 		long milliseconds = executionTime - (seconds * 1000);//find left over milliseconds
 		
 		System.err.println("computation time: "+seconds+" seconds "+ milliseconds +" milliseconds");
+		System.err.println("Number of collisions: "+collisions);
 
 		if (guiOn) {
 			gui.dispose();
 		}
 		
 		writetofile(allBodies);
-		// gui.dispose();
 	}
 
 	private static void writetofile(Body[] allBodies) {
@@ -119,12 +124,14 @@ public class NBody
 		
 	}
 
-	private static void physics(Body[] allBodies) {
+	private static int physics(Body[] allBodies) {
+		int collisions=0;
 		for (Body body : allBodies) {
-			body.updateVelocity(allBodies, secondInTimeStep);
+			collisions= body.updateVelocity(allBodies, secondInTimeStep);
 		}
 		for (Body body : allBodies) {
 			body.updatePosition(secondInTimeStep);
 		}
+		return collisions;
 	}
 }

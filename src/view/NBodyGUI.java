@@ -43,7 +43,7 @@ public class NBodyGUI
 			{
 				graphics.setColor(Color.BLUE);
 				graphics.fillOval(body.getxPosition(), body.getyPosition(), body.getSize(), body.getSize());
-				System.out.println(body.getxPosition() + " " + body.getyPosition());
+				//System.out.println(body.getxPosition() + " " + body.getyPosition());
 			}
 		}
 	}

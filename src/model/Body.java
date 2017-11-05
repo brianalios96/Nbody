@@ -94,8 +94,9 @@ public class Body
 		}
 	}
 	
-	public void updateVelocity(Body[] allBodies, double seconds)
+	public int updateVelocity(Body[] allBodies, double seconds)
 	{
+		int collisions=0;
 		for(Body other: allBodies)
 		{
 			if(other != this)
@@ -113,6 +114,7 @@ public class Body
 					
 					yVelocity = other.initialYVelocity * square(yDistance) + (other.initialXVelocity - initialXVelocity)*xDistance*yDistance + initialYVelocity*square(xDistance);
 					yVelocity /= distanceSquared;
+					collisions=collisions+1;
 				}
 				
 				double force = GRAVITY * MASS * MASS / square(distanceSquared); // Newtons
@@ -127,6 +129,7 @@ public class Body
 				yVelocity += yAcceleration * (seconds / 1000);
 			}
 		}
+		return collisions;
 	}
 	
 	private double square(double input)

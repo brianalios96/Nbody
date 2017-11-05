@@ -91,10 +91,10 @@ public class Body
 		this.size = size;
 	}
 	
-	public void updatePosition()
+	public void updatePosition(double nextTime)
 	{
-		xPosition += xVelocity * secondInTimeStep;
-		yPosition += yVelocity * secondInTimeStep;
+		xPosition += xVelocity * nextTime;
+		yPosition += yVelocity * nextTime;
 		
 		initialXVelocity = xVelocity;
 		initialYVelocity = yVelocity;
@@ -120,7 +120,7 @@ public class Body
 		}
 	}
 	
-	public int updateVelocity(Body[] allBodies)
+	public int updateVelocity(Body[] allBodies, double nextTime)
 	{
 		int collisions=0;
 		for(Body other: allBodies)
@@ -135,7 +135,9 @@ public class Body
 				
 				boolean collide = false;
 				if(distance <= (size + other.size)/2) // size is diameter not radius
-				{					
+				{	
+					double initialKineticEnergySquared = square(xVelocity) + square(yVelocity) + square(other.xVelocity) + square(other.yVelocity);
+					
 //					System.out.println("Collide");
 					xVelocity = other.initialXVelocity * square(xDistance) + (other.initialYVelocity - initialYVelocity)*xDistance*yDistance + initialXVelocity*square(yDistance);
 					xVelocity /= distanceSquared;
@@ -148,6 +150,17 @@ public class Body
 					distanceSquared = distance*distance;
 					
 					collide = true;
+					
+					
+					double otherxVelocity = initialXVelocity * square(xDistance) + (initialYVelocity - other.initialYVelocity)*xDistance*yDistance + other.initialXVelocity*square(yDistance);
+					otherxVelocity /= distanceSquared;
+					
+					double otheryVelocity = initialYVelocity * square(yDistance) + (initialXVelocity - other.initialXVelocity)*xDistance*yDistance + other.initialYVelocity*square(xDistance);
+					otheryVelocity /= distanceSquared;
+					
+					double finalKineticEnergySquared = square(xVelocity) + square(yVelocity) + square(otherxVelocity) + square(otheryVelocity);
+					
+					System.out.println(initialKineticEnergySquared - finalKineticEnergySquared);
 				}
 				
 				double force = GRAVITY * MASS * MASS / distanceSquared; // Newtons
@@ -158,8 +171,8 @@ public class Body
 				double xAcceleration = xForce / MASS; // m per second-squared
 				double yAcceleration = yForce / MASS;
 
-				xVelocity += xAcceleration * (secondInTimeStep/1000); // KILOmeter per second
-				yVelocity += yAcceleration * (secondInTimeStep/1000);
+				xVelocity += xAcceleration * (nextTime/1000); // KILOmeter per second
+				yVelocity += yAcceleration * (nextTime/1000);
 				
 				if(collide == false)
 				{
@@ -185,6 +198,40 @@ public class Body
 			}
 		}
 		return collisions;
+	}
+	
+	public double nextCollisionTime(Body[] allBodies)
+	{
+		double nextTime = secondInTimeStep;
+		
+//		for(Body other : allBodies)
+//		{
+//			if(other != this)
+//			{
+//				double xVelocityDifference = other.xVelocity - this.xVelocity;
+//				double yVelocityDifference = other.yVelocity - this.yVelocity;
+//				double xPositionDifference = other.xPosition - this.xPosition;
+//				double yPositionDifference = other.yPosition - this.yPosition;
+//				
+//				double a = square(xVelocityDifference) + square(yVelocityDifference);
+//				double b = 2 * (xVelocityDifference*xPositionDifference + yVelocityDifference*yPositionDifference);
+//				double c = square(xPositionDifference) + square(yPositionDifference) - square((other.size + this.size)/2);
+//				
+//				double time1 = ( -b + Math.sqrt(square(b) - 4*a*c) ) / (2*a);
+//				double time2 = ( -b - Math.sqrt(square(b) - 4*a*c) ) / (2*a);
+//				
+//				if(time1 > 0 && time1 < nextTime)
+//				{
+//					nextTime = time1;
+//				}
+//				if(time2 > 0 && time2 < nextTime)
+//				{
+//					nextTime = time2;
+//				}
+//			}
+//		}
+		
+		return nextTime;
 	}
 	
 	private double square(double input)

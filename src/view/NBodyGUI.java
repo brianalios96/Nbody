@@ -17,6 +17,7 @@ public class NBodyGUI
 	{
 		this.allBodies = allBodies;
 		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(GUIsize,GUIsize);//300, 300);
 		frame.setLocation(600, 200);
 		frame.add(new DrawingPanel());

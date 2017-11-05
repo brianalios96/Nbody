@@ -1,0 +1,6 @@
+all: NBody
+
+NBody: NBody.java
+	javac NBody.java
+	javac Body.java
+	javac NBodyGUI.java

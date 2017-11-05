@@ -1,6 +1,12 @@
 Body: 0
-XPosition: 325, YPosition: 492, XVelocity: 3.493286211825298E8, YVeloctiy: -1.9921873033893726E9
+XPosition: 242, YPosition: 189, XVelocity: 801.6244118622092, YVeloctiy: 500.7951045782345
 
 Body: 1
-XPosition: 31, YPosition: 421, XVelocity: 4.077539558174702E8, YVeloctiy: 4.9703102538937426E8
+XPosition: 343, YPosition: 6, XVelocity: -37.013860594849966, YVeloctiy: -204.64234124831975
+
+Body: 2
+XPosition: 486, YPosition: 309, XVelocity: -2273.913871005153, YVeloctiy: -887.3069307039154
+
+Body: 3
+XPosition: 74, YPosition: 434, XVelocity: 1430.913321880674, YVeloctiy: 574.4314189319523
 

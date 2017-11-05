@@ -67,7 +67,6 @@ public class NBody
 
 		NBodyGUI gui = null;
 		if (guiOn) {
-			//second parameter is the window size
 			gui = new NBodyGUI(allBodies);
 		}
 

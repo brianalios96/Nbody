@@ -1,9 +1,7 @@
-package model;
+
 
 import java.awt.Color;
 import java.util.Random;
-
-import view.NBodyGUI;
 
 public class Body
 {

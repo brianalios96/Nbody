@@ -1,11 +1,9 @@
-package model;
+
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
-
-import view.NBodyGUI;
 
 public class NBodyParallel {
 
@@ -15,7 +13,7 @@ public class NBodyParallel {
 		int bodies = 50;
 		int size = 10;// of each body.
 		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)
-		boolean guiOn = true;//display the GUI or not
+		boolean guiOn = false;//display the GUI or not
 		boolean random= false;//set size of bodies to random numbers
 
 		long executionTime = 0;

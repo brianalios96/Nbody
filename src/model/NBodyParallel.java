@@ -70,23 +70,24 @@ public class NBodyParallel {
 
 		int collisions=0;
 		
+		WorkerThread threadworkers[]= new WorkerThread[workers];
+		for(int i=0; i<workers; i++)
+		{
+			threadworkers[i]= new WorkerThread(i, workers, gui, allBodies);
+			threadworkers[i].start();
+		}
+		for(int i=0; i<workers; i++)
+		{
+			try {
+				threadworkers[i].join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		// start the timer
 		long startTime = System.nanoTime();
 
-		for (int i = 0; i < timeSteps; i++)
-		{
-			collisions= collisions+ physics(allBodies);
-			if (guiOn) 
-			{
-				gui.update();
-			}
-			try {
-				Thread.sleep(1000 / FramePerSecond);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
-		}
+		
 
 		// stop the timer
 		long endTime = System.nanoTime();

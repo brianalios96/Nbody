@@ -75,21 +75,23 @@ public class Body
 		initialXVelocity = xVelocity;
 		initialYVelocity = yVelocity;
 		
-		while(xPosition > NBodyGUI.GUIsize)
+		if(xPosition > NBodyGUI.GUIsize)
 		{
-			xPosition -= NBodyGUI.GUIsize;
+			xPosition %= NBodyGUI.GUIsize;
 		}
-		while(xPosition < 0)
+		if(xPosition < 0)
 		{
+			xPosition %= NBodyGUI.GUIsize;
 			xPosition += NBodyGUI.GUIsize;
 		}
 		
-		while(yPosition > NBodyGUI.GUIsize)
+		if(yPosition > NBodyGUI.GUIsize)
 		{
-			yPosition -= NBodyGUI.GUIsize;
+			yPosition %= NBodyGUI.GUIsize;
 		}
-		while(yPosition < 0)
+		if(yPosition < 0)
 		{
+			yPosition %= NBodyGUI.GUIsize;
 			yPosition += NBodyGUI.GUIsize;
 		}
 	}

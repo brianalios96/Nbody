@@ -1,17 +1,20 @@
 package model;
 
 import java.util.concurrent.*;
+import view.*;
 
 public class WorkerThread extends Thread
 {
 	private int threadID;
 	private int numThread;
 	private static Semaphore barriers[][];
+	NBodyGUI GUI;
 
-	public WorkerThread(int ID, int numThreads)
+	public WorkerThread(int ID, int numThreads, NBodyGUI gui)
 	{
 		threadID = ID;
 		this.numThread = numThreads;
+		GUI = gui;
 		
 		if(barriers == null)
 		{

@@ -15,6 +15,7 @@ public class NBodyParallel {
 		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)
 		boolean guiOn = false;//display the GUI or not
 		boolean random= false;//set size of bodies to random numbers
+		boolean sleeper=false;//make the gui sleep
 
 		long executionTime = 0;
 
@@ -34,9 +35,13 @@ public class NBodyParallel {
 		if (5 <= args.length) {
 			guiOn = Boolean.parseBoolean(args[4]);
 		}
-		if(6== args.length)
+		if(6<= args.length)
 		{
 			random=Boolean.parseBoolean(args[5]);
+		}
+		if(7== args.length)
+		{
+			sleeper= Boolean.parseBoolean(args[6]);
 		}
 
 
@@ -58,7 +63,7 @@ public class NBodyParallel {
 		NBodyGUI gui = null;
 		if (guiOn) {
 			//second parameter is the window size
-			gui = new NBodyGUI(allBodies);
+			gui = new NBodyGUI(allBodies, sleeper);
 		}
 
 		int collisions=0;

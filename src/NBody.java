@@ -13,6 +13,7 @@ public class NBody {
 								// physics loop will run)
 		boolean guiOn = false;// display the GUI or not
 		boolean random = false;// set size of bodies to random numbers
+		boolean sleeper= false;//make the threads sleep for the gui
 
 		long executionTime = 0;
 
@@ -32,8 +33,12 @@ public class NBody {
 		if (5 <= args.length) {
 			guiOn = Boolean.parseBoolean(args[4]);
 		}
-		if (6 == args.length) {
+		if (6 <= args.length) {
 			random = Boolean.parseBoolean(args[5]);
+		}
+		if(7== args.length)
+		{
+			sleeper= Boolean.parseBoolean(args[6]);
 		}
 
 		ArrayList<ArrayList<Integer>> used = new ArrayList<ArrayList<Integer>>(3);
@@ -80,7 +85,7 @@ public class NBody {
 
 		NBodyGUI gui = null;
 		if (guiOn) {
-			gui = new NBodyGUI(allBodies);
+			gui = new NBodyGUI(allBodies, sleeper);
 		}
 
 		int collisions = 0;

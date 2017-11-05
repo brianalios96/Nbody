@@ -10,10 +10,11 @@ public class NBodyGUI
 	
 	private Body allBodies[];
 	private JFrame frame;
+	private boolean sleeper;
 
 	public static final int GUIsize=500;
 	
-	public NBodyGUI(Body[] allBodies)
+	public NBodyGUI(Body[] allBodies, boolean sleeper)
 	{
 		this.allBodies = allBodies;
 		frame = new JFrame();
@@ -22,6 +23,7 @@ public class NBodyGUI
 		frame.add(new DrawingPanel());
 		frame.pack();
 		frame.setVisible(true);
+		this.sleeper=sleeper;
 	}
 
 	public void dispose()
@@ -32,10 +34,13 @@ public class NBodyGUI
 	public void update()
 	{
 		frame.repaint();
-		try {
-			Thread.sleep(1000/FramePerSecond);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if(sleeper==true)
+		{
+			try {
+				Thread.sleep(1000/FramePerSecond);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

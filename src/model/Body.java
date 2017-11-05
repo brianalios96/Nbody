@@ -93,6 +93,7 @@ public class Body
 	
 	public void updatePosition()
 	{
+
 		xPosition += xVelocity * secondInTimeStep;
 		yPosition += yVelocity * secondInTimeStep;
 		

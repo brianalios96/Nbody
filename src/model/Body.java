@@ -107,8 +107,9 @@ public class Body
 				double yDistance = other.yPosition - yPosition;
 				
 				double distanceSquared = square(xDistance) + square(yDistance); // kilometers-squared
+				double distance = Math.sqrt(distanceSquared);
 				
-				if(distanceSquared <= size*size) // size is diameter not radius
+				if(distance <= size) // size is diameter not radius
 				{					
 //					System.out.println("Collide");
 					xVelocity = other.initialXVelocity * square(xDistance) + (other.initialYVelocity - initialYVelocity)*xDistance*yDistance + initialXVelocity*square(yDistance);
@@ -119,10 +120,10 @@ public class Body
 					collisions=collisions+1;
 				}
 				
-				double force = GRAVITY * MASS * MASS / square(distanceSquared); // Newtons
+				double force = GRAVITY * MASS * MASS / distanceSquared; // Newtons
 				
-				double xForce = force * xDistance / distanceSquared; // still Newtons
-				double yForce = force * yDistance / distanceSquared;
+				double xForce = force * xDistance / distance; // still Newtons
+				double yForce = force * yDistance / distance;
 				
 				double xAcceleration = xForce / MASS; // m per second-squared
 				double yAcceleration = yForce / MASS;

@@ -35,10 +35,19 @@ public class Body
 	{
 		this.xVelocity = xVelocity;
 	}
+	public double getxVelocity()
+	{
+		return xVelocity;
+	}
 
 	public void setyVelocity(double yVelocity)
 	{
 		this.yVelocity = yVelocity;
+	}
+	
+	public double getyVelocity()
+	{
+		return yVelocity;
 	}
 
 	public int getSize()

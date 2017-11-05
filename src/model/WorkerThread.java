@@ -62,7 +62,10 @@ public class WorkerThread extends Thread
 			barrier();
 			if(threadID == 0)
 			{
-				GUI.update();
+				if(GUI != null)
+				{
+					GUI.update();
+				}
 //				System.out.println(i);
 			}
 		}

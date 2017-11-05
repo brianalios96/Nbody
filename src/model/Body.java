@@ -6,10 +6,10 @@ import view.NBodyGUI;
 
 public class Body
 {
-	private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
+	private static final double secondInTimeStep = 0.001;//used to calculate velocity and position
 	private static final double GRAVITY = 6.673 * Math.pow(10, -11) / (1000 * 1000); // Newton square-kilometer per square-kilogram
 	private static final double MASS = 5.972 * Math.pow(10,24); // kg, mass of earth
-	private static final double MAX_VELOCITY = 10;
+	private static final double MAX_VELOCITY = 200;
 	
 	private double xPosition;
 	private double yPosition;
@@ -124,6 +124,7 @@ public class Body
 				double distanceSquared = square(xDistance) + square(yDistance); // kilometers-squared
 				double distance = Math.sqrt(distanceSquared);
 				
+				boolean collide = false;
 				if(distance <= (size + other.size)/2) // size is diameter not radius
 				{					
 //					System.out.println("Collide");
@@ -136,6 +137,8 @@ public class Body
 					
 					distance = (size + other.size)/2;
 					distanceSquared = distance*distance;
+					
+					collide = true;
 				}
 				
 				double force = GRAVITY * MASS * MASS / distanceSquared; // Newtons
@@ -149,23 +152,27 @@ public class Body
 				xVelocity += xAcceleration * (secondInTimeStep/1000); // KILOmeter per second
 				yVelocity += yAcceleration * (secondInTimeStep/1000);
 				
-				if(xVelocity > MAX_VELOCITY)
+				if(collide == false)
 				{
-					xVelocity = MAX_VELOCITY;
+					if(xVelocity > MAX_VELOCITY)
+					{
+						xVelocity = MAX_VELOCITY;
+					}
+					if(xVelocity < -MAX_VELOCITY)
+					{
+						xVelocity = -MAX_VELOCITY;
+					}
+					
+					if(yVelocity > MAX_VELOCITY)
+					{
+						yVelocity = MAX_VELOCITY;
+					}
+					if(yVelocity < -MAX_VELOCITY)
+					{
+						yVelocity = -MAX_VELOCITY;
+					}
 				}
-				if(xVelocity < -MAX_VELOCITY)
-				{
-					xVelocity = -MAX_VELOCITY;
-				}
-				
-				if(yVelocity > MAX_VELOCITY)
-				{
-					yVelocity = MAX_VELOCITY;
-				}
-				if(yVelocity < -MAX_VELOCITY)
-				{
-					yVelocity = -MAX_VELOCITY;
-				}
+//				System.out.println(xVelocity + " " + yVelocity);
 			}
 		}
 		return collisions;

@@ -82,11 +82,14 @@ public class NBodyParallel {
 			threadworkers[i].start();
 		}
 		
+		int totalcollisions= 0;
 		//see if the threads are done
 		for(int i=0; i<workers; i++)
 		{
 			try {
 				threadworkers[i].join();
+				totalcollisions= totalcollisions+ threadworkers[i].getcollisons();
+				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

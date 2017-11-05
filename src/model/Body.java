@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 import view.NBodyGUI;
 
 public class Body
@@ -15,8 +17,19 @@ public class Body
 	private double yVelocity;
 	private int size;
 
+	private Color color;
 	private double initialXVelocity;
 	private double initialYVelocity;
+	
+	public void setcolor(Color color)
+	{
+		this.color= color;
+	}
+	
+	public Color getcolor()
+	{
+		return color;
+	}
 	
 	public int getxPosition()
 	{

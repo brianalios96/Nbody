@@ -15,7 +15,7 @@ public class NBodyParallel {
 	public static void main(String[] args)
 	{
 		int workers = 1;// 1 to 32. This argument will be ignored by the sequential solution.
-		int bodies = 2;
+		int bodies = 50;
 		int size = 10;// of each body.
 		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)
 		boolean guiOn = true;//display the GUI or not
@@ -51,8 +51,8 @@ public class NBodyParallel {
 			allBodies[i] = new Body();
 			allBodies[i].setxPosition(rng.nextInt(NBodyGUI.GUIsize));
 			allBodies[i].setyPosition(rng.nextInt(NBodyGUI.GUIsize));
-			allBodies[i].setxVelocity(0);
-			allBodies[i].setyVelocity(0);
+//			allBodies[i].setxVelocity(0);
+//			allBodies[i].setyVelocity(0);
 			if(random==true)
 			{
 				allBodies[i].setSize(10+rng.nextInt(40));

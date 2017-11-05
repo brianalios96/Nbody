@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.util.Random;
 
 import view.NBodyGUI;
 
@@ -20,6 +21,14 @@ public class Body
 	private Color color;
 	private double initialXVelocity;
 	private double initialYVelocity;
+	
+	public Body()
+	{
+		Random rng = new Random();
+		setxVelocity(0);
+		setyVelocity(0);
+		setcolor(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));
+	}
 	
 	public void setcolor(Color color)
 	{

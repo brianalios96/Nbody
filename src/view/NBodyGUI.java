@@ -6,7 +6,7 @@ import model.*;
 
 public class NBodyGUI
 {
-	private static final int FramePerSecond = 100;//slows down the simulation so it is understandable to humans.  dose NOT affect simulation.
+	private static final int FramePerSecond = 100;//slows down the frameRate so it is understandable to humans.  dose NOT affect simulation.
 	
 	private Body allBodies[];
 	private JFrame frame;
@@ -18,9 +18,9 @@ public class NBodyGUI
 		this.allBodies = allBodies;
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(GUIsize,GUIsize);
 		frame.setLocation(600, 200);
 		frame.add(new DrawingPanel());
+		frame.pack();
 		frame.setVisible(true);
 	}
 
@@ -43,6 +43,12 @@ public class NBodyGUI
 	{
 		private static final long serialVersionUID = 1L; // Completely useless, but required since some java employee added it to JPanel
 
+		@Override
+		public Dimension getPreferredSize()
+		{
+			return new Dimension(GUIsize, GUIsize);
+		}
+		
 		@Override
 		public void paintComponent(Graphics g)
 		{

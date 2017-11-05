@@ -9,9 +9,6 @@ import view.NBodyGUI;
 
 public class NBodyParallel {
 
-	//private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
-	//private static final int FramePerSecond = 10;//how long the body sleeps
-
 	public static void main(String[] args)
 	{
 		int workers = 32;// 1 to 32. This argument will be ignored by the sequential solution.
@@ -51,8 +48,6 @@ public class NBodyParallel {
 			allBodies[i] = new Body();
 			allBodies[i].setxPosition(rng.nextInt(NBodyGUI.GUIsize));
 			allBodies[i].setyPosition(rng.nextInt(NBodyGUI.GUIsize));
-//			allBodies[i].setxVelocity(0);
-//			allBodies[i].setyVelocity(0);
 			if(random==true)
 			{
 				allBodies[i].setSize(10+rng.nextInt(40));

@@ -1,0 +1,10 @@
+#! /bin/bash -u
+
+make all
+
+java NBody 1 50 10 10000
+
+for value in {1..32}
+do
+	java NBodyParallel $value 50 10 10000
+done

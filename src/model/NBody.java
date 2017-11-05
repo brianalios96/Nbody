@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import view.*;
@@ -47,12 +48,28 @@ public class NBody
 		}
 
 
-		Random rng = new Random();
+		ArrayList<Integer> inuse= new ArrayList<>();
+		int position;
+		
+		Random rng = new Random();		
 		Body allBodies[] = new Body[bodies];
 		for (int i = 0; i < allBodies.length; i++) {
 			allBodies[i] = new Body();
-			allBodies[i].setxPosition(rng.nextInt(NBodyGUI.GUIsize));
-			allBodies[i].setyPosition(rng.nextInt(NBodyGUI.GUIsize));
+			position= rng.nextInt(NBodyGUI.GUIsize);
+			while(inuse.contains(position))
+			{
+				position=rng.nextInt(NBodyGUI.GUIsize);
+			}
+			inuse.add(position);
+			allBodies[i].setxPosition(position);//rng.nextInt(NBodyGUI.GUIsize));
+			
+			position= rng.nextInt(NBodyGUI.GUIsize);
+			while(inuse.contains(position))
+			{
+				position=rng.nextInt(NBodyGUI.GUIsize);
+			}
+			inuse.add(position);
+			allBodies[i].setyPosition(position);//rng.nextInt(NBodyGUI.GUIsize));
 //			allBodies[i].setxVelocity(0);
 //			allBodies[i].setyVelocity(0);
 //			allBodies[i].setcolor(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));

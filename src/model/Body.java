@@ -140,6 +140,7 @@ public class Body
 					double initialKineticEnergySquared = square(xVelocity) + square(yVelocity) + square(other.xVelocity) + square(other.yVelocity);
 					
 //					System.out.println("Collide");
+					
 					xVelocity = other.initialXVelocity * square(xDistance) + (other.initialYVelocity - initialYVelocity)*xDistance*yDistance + initialXVelocity*square(yDistance);
 					xVelocity /= distanceSquared;
 					
@@ -161,7 +162,7 @@ public class Body
 					
 					double finalKineticEnergySquared = square(xVelocity) + square(yVelocity) + square(otherxVelocity) + square(otheryVelocity);
 					
-					System.out.println(initialKineticEnergySquared - finalKineticEnergySquared);
+//					System.out.println(initialKineticEnergySquared - finalKineticEnergySquared);
 				}
 				
 				double force = GRAVITY * MASS * MASS / distanceSquared; // Newtons

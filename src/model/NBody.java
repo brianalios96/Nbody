@@ -17,7 +17,7 @@ public class NBody
 	public static void main(String[] args)
 	{
 		int workers = 0;// 1 to 32. This argument will be ignored by the sequential solution.
-		int bodies = 50;
+		int bodies = 2;
 		int size = 10;// of each body.
 		int timeSteps = 10000;// number of time steps (how many times the physics loop will run)
 		boolean guiOn = true;//display the GUI or not
@@ -128,13 +128,21 @@ public class NBody
 		
 	}
 
-	private static int physics(Body[] allBodies) {
-		int collisions=0;
-		for (Body body : allBodies) {
-			collisions= body.updateVelocity(allBodies);
+	private static int physics(Body[] allBodies)
+	{
+		int collisions = 0;
+		double nextTime = allBodies[0].nextCollisionTime(allBodies);
+		for(int i = 1; i < allBodies.length; i++)
+		{
+			nextTime = Math.min(nextTime, allBodies[i].nextCollisionTime(allBodies));
 		}
-		for (Body body : allBodies) {
-			body.updatePosition();
+		for (Body body : allBodies)
+		{
+			collisions = body.updateVelocity(allBodies, nextTime);
+		}
+		for (Body body : allBodies)
+		{
+			body.updatePosition(nextTime);
 		}
 		return collisions;
 	}

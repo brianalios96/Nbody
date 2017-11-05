@@ -50,10 +50,10 @@ public class NBodyTests {
 	private static int physics(Body[] allBodies) {
 		int collisions = 0;
 		for (Body body : allBodies) {
-			collisions = body.updateVelocity(allBodies);
+			collisions = body.updateVelocity(allBodies, 0.001);
 		}
 		for (Body body : allBodies) {
-			body.updatePosition();
+			body.updatePosition(0.001);
 		}
 		return collisions;
 	}

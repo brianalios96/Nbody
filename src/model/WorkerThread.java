@@ -8,13 +8,15 @@ public class WorkerThread extends Thread
 	private int threadID;
 	private int numThread;
 	private static Semaphore barriers[][];
-	NBodyGUI GUI;
+	private NBodyGUI GUI;
+	private Body[] allBodies;
 
-	public WorkerThread(int ID, int numThreads, NBodyGUI gui)
+	public WorkerThread(int ID, int numThreads, NBodyGUI gui, Body[] allBodies)
 	{
 		threadID = ID;
 		this.numThread = numThreads;
 		GUI = gui;
+		this.allBodies = allBodies;
 		
 		if(barriers == null)
 		{

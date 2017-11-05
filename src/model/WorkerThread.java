@@ -11,7 +11,8 @@ public class WorkerThread extends Thread
 	private NBodyGUI GUI;
 	private Body[] allBodies;
 
-	public WorkerThread(int ID, int numThreads, NBodyGUI gui, Body[] allBodies)
+
+	public WorkerThread(int ID, int numThreads, NBodyGUI gui, Body allBodies[])
 	{
 		threadID = ID;
 		this.numThread = numThreads;

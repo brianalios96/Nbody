@@ -32,7 +32,7 @@ public class NBodyGUI
 	{
 		frame.repaint();
 		try {
-			Thread.sleep(FramePerSecond);
+			Thread.sleep(1000/FramePerSecond);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

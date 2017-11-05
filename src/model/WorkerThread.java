@@ -38,23 +38,23 @@ public class WorkerThread extends Thread
 	public void run()
 	{
 		int height = allBodies.length / numThread;
-		int firstbody = threadID * height + 1;
+		int firstbody = threadID * height;
 		int lastBody = firstbody + height;
 
 		if (threadID == (numThread - 1))
 		{
-			lastBody = allBodies.length + 1;
+			lastBody = allBodies.length;
 		}
 		
 		
 		for(int i = 0; i < timeSteps; i++)
 		{
-			for(int j = firstbody; i<lastBody; i++)
+			for(int j = firstbody; j<lastBody; j++)
 			{
 				allBodies[j].updateVelocity(allBodies); //TODO
 			}
 			barrier();
-			for(int j = firstbody; i<lastBody; i++)
+			for(int j = firstbody; j<lastBody; j++)
 			{
 				allBodies[j].updatePosition(); //TODO
 			}
@@ -62,6 +62,7 @@ public class WorkerThread extends Thread
 			if(threadID == 0)
 			{
 				GUI.update();
+//				System.out.println(i);
 			}
 		}
 	}

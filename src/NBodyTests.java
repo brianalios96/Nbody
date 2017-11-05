@@ -1,4 +1,4 @@
-package tests;
+
 
 import static org.junit.Assert.*;
 
@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.junit.Test;
-
-import model.Body;
-import view.NBodyGUI;
 
 public class NBodyTests {
 

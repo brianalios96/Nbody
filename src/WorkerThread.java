@@ -1,7 +1,7 @@
-package model;
+
 
 import java.util.concurrent.*;
-import view.*;
+
 
 public class WorkerThread extends Thread
 {

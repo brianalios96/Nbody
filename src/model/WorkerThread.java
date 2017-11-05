@@ -34,6 +34,15 @@ public class WorkerThread extends Thread
 	@Override
 	public void run()
 	{
+		int height = allBodies.length / numThread;
+		int firstbody = threadID * height + 1;
+		int lastBody = firstbody + height;
+
+		if (threadID == (numThread - 1))
+		{
+			lastBody = allBodies.length + 1;
+		}
+		
 		
 	}
 	

@@ -9,12 +9,12 @@ import view.NBodyGUI;
 
 public class NBodyParallel {
 
-	private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
-	private static final int FramePerSecond = 10;//how long the body sleeps
+	//private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
+	//private static final int FramePerSecond = 10;//how long the body sleeps
 
 	public static void main(String[] args)
 	{
-		int workers = 0;// 1 to 32. This argument will be ignored by the sequential solution.
+		int workers = 1;// 1 to 32. This argument will be ignored by the sequential solution.
 		int bodies = 2;
 		int size = 7;// of each body.
 		int timeSteps = 1000;// number of time steps (how many times the physics loop will run)
@@ -73,7 +73,7 @@ public class NBodyParallel {
 		WorkerThread threadworkers[]= new WorkerThread[workers];
 		for(int i=0; i<workers; i++)
 		{
-			threadworkers[i]= new WorkerThread(i, workers, gui, allBodies);
+			threadworkers[i]= new WorkerThread(i, workers, gui, allBodies, timeSteps);
 			threadworkers[i].start();
 		}
 		for(int i=0; i<workers; i++)
@@ -125,17 +125,6 @@ public class NBodyParallel {
 			System.out.println("error in writing to file");
 		}
 		
-	}
-
-	private static int physics(Body[] allBodies) {
-		int collisions=0;
-		for (Body body : allBodies) {
-			collisions= body.updateVelocity(allBodies, secondInTimeStep);
-		}
-		for (Body body : allBodies) {
-			body.updatePosition(secondInTimeStep);
-		}
-		return collisions;
 	}
 	
 }

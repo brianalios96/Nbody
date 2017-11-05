@@ -10,14 +10,16 @@ public class WorkerThread extends Thread
 	private static Semaphore barriers[][];
 	private NBodyGUI GUI;
 	private Body[] allBodies;
+	private double timeSteps;
 
 
-	public WorkerThread(int ID, int numThreads, NBodyGUI gui, Body allBodies[])
+	public WorkerThread(int ID, int numThreads, NBodyGUI gui, Body allBodies[], double timesteps)
 	{
 		threadID = ID;
 		this.numThread = numThreads;
 		GUI = gui;
 		this.allBodies = allBodies;
+		this.timeSteps= timesteps;
 		
 		if(barriers == null)
 		{
@@ -44,18 +46,17 @@ public class WorkerThread extends Thread
 			lastBody = allBodies.length + 1;
 		}
 		
-		int timeSteps = 1000; //TODO
 		
 		for(int i = 0; i < timeSteps; i++)
 		{
 			for(int j = firstbody; i<lastBody; i++)
 			{
-				allBodies[j].updateVelocity(allBodies, 0.1); //TODO
+				allBodies[j].updateVelocity(allBodies); //TODO
 			}
 			barrier();
 			for(int j = firstbody; i<lastBody; i++)
 			{
-				allBodies[j].updatePosition(0.1); //TODO
+				allBodies[j].updatePosition(); //TODO
 			}
 			barrier();
 			if(threadID == 0)

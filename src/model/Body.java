@@ -4,6 +4,7 @@ import view.NBodyGUI;
 
 public class Body
 {
+	private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
 	private static final double GRAVITY = 6.673 * Math.pow(10, -11) / (1000 * 1000); // Newton square-kilometer per square-kilogram
 	private static final double MASS = 5.972 * Math.pow(10,24); // kg, mass of earth
 	
@@ -67,10 +68,10 @@ public class Body
 		this.size = size;
 	}
 	
-	public void updatePosition(double seconds)
+	public void updatePosition()
 	{
-		xPosition += xVelocity * seconds;
-		yPosition += yVelocity * seconds;
+		xPosition += xVelocity * secondInTimeStep;
+		yPosition += yVelocity * secondInTimeStep;
 		
 		initialXVelocity = xVelocity;
 		initialYVelocity = yVelocity;
@@ -96,7 +97,7 @@ public class Body
 		}
 	}
 	
-	public int updateVelocity(Body[] allBodies, double seconds)
+	public int updateVelocity(Body[] allBodies)
 	{
 		int collisions=0;
 		for(Body other: allBodies)
@@ -131,9 +132,8 @@ public class Body
 				double xAcceleration = xForce / MASS; // m per second-squared
 				double yAcceleration = yForce / MASS;
 
-				xVelocity += xAcceleration * (seconds / 1000); // KILOmeter per second
-				yVelocity += yAcceleration * (seconds / 1000);
-//				System.out.println(xVelocity);
+				xVelocity += xAcceleration * (secondInTimeStep/1000); // KILOmeter per second
+				yVelocity += yAcceleration * (secondInTimeStep/1000);
 			}
 		}
 		return collisions;

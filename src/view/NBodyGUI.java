@@ -6,6 +6,8 @@ import model.*;
 
 public class NBodyGUI
 {
+	private static final int FramePerSecond = 10;//how long the body sleeps
+	
 	private Body allBodies[];
 	private JFrame frame;
 
@@ -29,6 +31,11 @@ public class NBodyGUI
 	public void update()
 	{
 		frame.repaint();
+		try {
+			Thread.sleep(FramePerSecond);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private class DrawingPanel extends JPanel

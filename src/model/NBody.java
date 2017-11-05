@@ -10,8 +10,8 @@ import view.*;
 
 public class NBody
 {
-	private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
-	private static final int FramePerSecond = 10;//how long the body sleeps
+	//private static final double secondInTimeStep = 0.1;//used to calculate velocity and position
+	//private static final int FramePerSecond = 10;//how long the body sleeps
 
 	public static void main(String[] args)
 	{
@@ -81,12 +81,12 @@ public class NBody
 			{
 				gui.update();
 			}
-			try {
-				Thread.sleep(1000 / FramePerSecond);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
+//			try {
+//				Thread.sleep(1000 / FramePerSecond);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//				System.exit(1);
+//			}
 		}
 
 		// stop the timer
@@ -130,10 +130,10 @@ public class NBody
 	private static int physics(Body[] allBodies) {
 		int collisions=0;
 		for (Body body : allBodies) {
-			collisions= body.updateVelocity(allBodies, secondInTimeStep);
+			collisions= body.updateVelocity(allBodies);
 		}
 		for (Body body : allBodies) {
-			body.updatePosition(secondInTimeStep);
+			body.updatePosition();
 		}
 		return collisions;
 	}

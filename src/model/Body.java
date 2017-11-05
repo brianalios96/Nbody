@@ -11,6 +11,9 @@ public class Body
 	private double yVelocity;
 	private int size;
 
+	private double initialXVelocity;
+	private double initialYVelocity;
+	
 	public int getxPosition()
 	{
 		return (int) xPosition;
@@ -34,6 +37,7 @@ public class Body
 	public void setxVelocity(double xVelocity)
 	{
 		this.xVelocity = xVelocity;
+		initialXVelocity = xVelocity;
 	}
 	public double getxVelocity()
 	{
@@ -43,6 +47,7 @@ public class Body
 	public void setyVelocity(double yVelocity)
 	{
 		this.yVelocity = yVelocity;
+		initialYVelocity = yVelocity;
 	}
 	
 	public double getyVelocity()
@@ -64,23 +69,36 @@ public class Body
 	{
 		xPosition += xVelocity * seconds;
 		yPosition += yVelocity * seconds;
+		
+		initialXVelocity = xVelocity;
+		initialYVelocity = yVelocity;
 	}
 	
 	public void updateVelocity(Body[] allBodies, double seconds)
 	{
-		for(Body body: allBodies)
+		for(Body other: allBodies)
 		{
-			if(body != this)
+			if(other != this)
 			{
-				double xDistance = body.xPosition - xPosition; // kilometers
-				double yDistance = body.yPosition - yPosition;
+				double xDistance = other.xPosition - xPosition; // kilometers
+				double yDistance = other.yPosition - yPosition;
 				
-				double distance = square(xDistance) + square(yDistance); // kilometers-squared
+				double distanceSquared = square(xDistance) + square(yDistance); // kilometers-squared
 				
-				double force = GRAVITY * MASS * MASS / square(distance); // Newtons
+				if(distanceSquared <= size*size) // size is diameter not radius
+				{					
+//					System.out.println("Collide");
+					xVelocity = other.initialXVelocity * square(xDistance) + (other.initialYVelocity - initialYVelocity)*xDistance*yDistance + initialXVelocity*square(yDistance);
+					xVelocity /= distanceSquared;
+					
+					yVelocity = other.initialYVelocity * square(yDistance) + (other.initialXVelocity - initialXVelocity)*xDistance*yDistance + initialYVelocity*square(xDistance);
+					yVelocity /= distanceSquared;
+				}
 				
-				double xForce = force * xDistance / distance; // still Newtons
-				double yForce = force * yDistance / distance;
+				double force = GRAVITY * MASS * MASS / square(distanceSquared); // Newtons
+				
+				double xForce = force * xDistance / distanceSquared; // still Newtons
+				double yForce = force * yDistance / distanceSquared;
 				
 				double xAcceleration = xForce / MASS; // m per second-squared
 				double yAcceleration = yForce / MASS;
@@ -93,7 +111,7 @@ public class Body
 	
 	private double square(double input)
 	{
-		return Math.pow(input, 2);
+		return input * input;
 	}
 
 }

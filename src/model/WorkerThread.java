@@ -11,6 +11,7 @@ public class WorkerThread extends Thread
 	private NBodyGUI GUI;
 	private Body[] allBodies;
 	private double timeSteps;
+	private int collisions;
 
 
 	public WorkerThread(int ID, int numThreads, NBodyGUI gui, Body allBodies[], double timesteps)
@@ -20,7 +21,7 @@ public class WorkerThread extends Thread
 		GUI = gui;
 		this.allBodies = allBodies;
 		this.timeSteps= timesteps;
-		
+		collisions=0;
 		if(barriers == null)
 		{
 			barriers = new Semaphore[5][32];
@@ -51,12 +52,12 @@ public class WorkerThread extends Thread
 		{
 			for(int j = firstbody; j<lastBody; j++)
 			{
-				allBodies[j].updateVelocity(allBodies); //TODO
+				collisions= collisions+ allBodies[j].updateVelocity(allBodies);
 			}
 			barrier();
 			for(int j = firstbody; j<lastBody; j++)
 			{
-				allBodies[j].updatePosition(); //TODO
+				allBodies[j].updatePosition();
 			}
 			barrier();
 			if(threadID == 0)
@@ -65,6 +66,11 @@ public class WorkerThread extends Thread
 //				System.out.println(i);
 			}
 		}
+	}
+	
+	public int getcollisons()
+	{
+		return collisions;
 	}
 	
 	private void barrier()

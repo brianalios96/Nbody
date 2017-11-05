@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -54,6 +55,7 @@ public class NBody
 			allBodies[i].setyPosition(rng.nextInt(NBodyGUI.GUIsize));
 			allBodies[i].setxVelocity(0);
 			allBodies[i].setyVelocity(0);
+			allBodies[i].setcolor(new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)));
 			if(random==true)
 			{
 				allBodies[i].setSize(10+rng.nextInt(40));

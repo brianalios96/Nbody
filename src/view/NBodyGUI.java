@@ -48,7 +48,7 @@ public class NBodyGUI
 			Graphics2D graphics = (Graphics2D) g;
 			for(Body body: allBodies)
 			{
-				graphics.setColor(Color.BLUE);
+				graphics.setColor(body.getcolor());
 				graphics.fillOval(body.getxPosition(), body.getyPosition(), body.getSize(), body.getSize());
 			}
 		}

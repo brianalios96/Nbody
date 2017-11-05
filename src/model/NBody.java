@@ -10,7 +10,7 @@ import view.*;
 
 public class NBody
 {
-	private static final double secondInTimeStep = 0.01;//used to calculate velocity and position
+	private static final double secondInTimeStep = 0.001;//used to calculate velocity and position
 	private static final int FramePerSecond = 10;//how long the body sleeps
 
 	public static void main(String[] args)

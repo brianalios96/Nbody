@@ -109,7 +109,7 @@ public class Body
 				double distanceSquared = square(xDistance) + square(yDistance); // kilometers-squared
 				double distance = Math.sqrt(distanceSquared);
 				
-				if(distance <= size) // size is diameter not radius
+				if(distance <= (size + other.size)/2) // size is diameter not radius
 				{					
 //					System.out.println("Collide");
 					xVelocity = other.initialXVelocity * square(xDistance) + (other.initialYVelocity - initialYVelocity)*xDistance*yDistance + initialXVelocity*square(yDistance);
@@ -119,7 +119,7 @@ public class Body
 					yVelocity /= distanceSquared;
 					collisions=collisions+1;
 					
-					distance = size;
+					distance = (size + other.size)/2;
 					distanceSquared = distance*distance;
 				}
 				

@@ -5,14 +5,14 @@ make all
 echo sequential no GUI
 java NBody 1 50 10 10000
 
-echo sequential with GUI
-java NBody 1 50 10 10000 true
-echo \n
+#echo sequential with GUI
+#java NBody 1 50 10 10000 true
+echo 
 for value in {1..32}
 do
 	echo parallel $value no GUI
 	java NBodyParallel $value 50 10 10000
-	echo parallel $value with GUI
-	java NBodyParallel $value 50 10 10000 true
-	echo \n
+	#echo parallel $value with GUI
+	#java NBodyParallel $value 50 10 10000 true
+	echo 
 done

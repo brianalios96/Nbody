@@ -66,7 +66,6 @@ public class NBodyParallel {
 			gui = new NBodyGUI(allBodies, sleeper);
 		}
 
-		int collisions=0;
 		
 		WorkerThread threadworkers[]= new WorkerThread[workers];
 		
@@ -103,7 +102,7 @@ public class NBodyParallel {
 		long milliseconds = executionTime - (seconds * 1000);//find left over milliseconds
 		
 		System.out.println("computation time: "+seconds+" seconds "+ milliseconds +" milliseconds");
-		System.out.println("Number of collisions: "+collisions);
+		System.out.println("Number of collisions: "+totalcollisions);
 
 		if (guiOn) {
 			gui.dispose();
